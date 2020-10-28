@@ -18,7 +18,11 @@ print ("Gib eine Zahl zwischen 0 und 20 ein, ob du wirklich richtig liegst siehs
 while raten != zahl:
     raten = int(input("Los rate!")) #Input ist immer ein string durch int() vorsatz wird es zum integer 
     # raten = int(raten) --> anderen variante um die input funktion als integer zu speichern
+    if raten == zahl:
+        print(raten, "ist richtig!.")
+        break
+    else:
+        print ("leider flasch")
 
-print ("Ritichg!", raten, "war die richtige Zahl")
 print ("done.")
 
