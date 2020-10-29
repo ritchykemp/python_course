@@ -41,18 +41,8 @@ def flaeche(a, b, c):
     F = math.sqrt (s*(s-a)*(s-b)*(s-c))
     #print ("Die Fläche des Dreiecks ist:", F)
     return F
-    
 
-"""Teil 4
-Usereingabe und Schleife
-- Programmiere User Eingabe für Seitenlängen 
-- & Schrittweite sowie Schrittzahl #range
-
-Das Programm berechnet Längen, Umfang, Fläche in einer Schleife 
-- Berechneten Längen in jeder Iteration um die Schrittweite erhöht wird
-- Iterationen so häufig bis vom USER angegebene Schrittanzahl errreicht ist
-"""
-
+#MAIN
 
 p1 = int(input("Gib die Erste X Korrdinate ein: "))
 b1 = int(input("Gib die Erste Y Korrdinate ein: "))
@@ -64,6 +54,7 @@ z3 = int(input("Gib die Dritte Y Korrdinate ein: "))
 mydist_a = dist_a(p1, b1, d2, t2)
 mydist_b = dist_a(p1, b1, s3, z3)
 mydist_c = dist_a(d2, t2, s3, z3)
+
 myumfang = umfang(mydist_a, mydist_b, mydist_c)
 myflaeche = flaeche(mydist_a, mydist_b, mydist_c)
 
@@ -72,6 +63,10 @@ print("Länge 2 ", mydist_c)
 print("länge 3 ",mydist_b)
 print("Umfang ", myumfang)
 print("Fläche ", myflaeche)
+
+
+
+
 
 
 print("done.")
