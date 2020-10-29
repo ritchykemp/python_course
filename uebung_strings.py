@@ -2,7 +2,18 @@
 Überprüfung von Benutzereingabe ob es sich um einen Strick handelt
 dafür soll die try / except & die Funktion int() verwednet werden """
 
+#Benutzereingabe
+x = input("Bitte gib ein String ein: ")
 
+#Kontrolle ob es ein string ist
+for i in x :
+    print("DEBUG: ", i)
+    try:
+        y = int(i)
+        print("Das ist Kein String")
+    except:
+        print ("jawohl das ist ein STring :) ")
+        
 
 
 """ Teil 2
