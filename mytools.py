@@ -54,7 +54,7 @@ def fibo_list(n): #funktion Fibonacci Folge n ist die Anzahl wie häufig dies pa
     return fib
 
 """Exponenzieles Wachstum - verdoppelt"""
-ef verdoppelt(n):
+def verdoppelt(n):
     x = int(input("Anzahl der Verdoppelungen "))
     kan_paar = [1]
     for i in range (1,x):
