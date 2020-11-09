@@ -43,3 +43,20 @@ def flaeche(a, b, c):
     F = math.sqrt (s*(s-a)*(s-b)*(s-c))
     #print ("Die Fläche des Dreiecks ist:", F)
     return F
+
+
+"""Berechne Fabonanci Folge als Liste"""
+def fibo_list(n): #funktion Fibonacci Folge n ist die Anzahl wie häufig dies passieren soll.
+    y = int(input("Gib eine Zahl ein: "))
+    fib =[0,y]
+    for i in range (1,n):
+        fib.append(fib[-1]+fib[-2])
+    return fib
+
+"""Exponenzieles Wachstum - verdoppelt"""
+ef verdoppelt(n):
+    x = int(input("Anzahl der Verdoppelungen "))
+    kan_paar = [1]
+    for i in range (1,x):
+        kan_paar.append(kan_paar[i-1]*2)
+    return kan_paar
