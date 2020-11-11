@@ -1,5 +1,5 @@
 #Definition Variable
-x = -5
+x = int(input("Gib eine Zahl ein: "))
 
 #If abfrage Kontrollstrukturen
 

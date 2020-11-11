@@ -33,8 +33,8 @@ for i1 in possible:
                 if password2 == password:
                     print(" Das passwort lautet :",password2)
                     break
-                else:
-                    print(password2)
+                #else:
+                    #print(password2)
             if password2 == password:
                 break
         if password2 == password:
