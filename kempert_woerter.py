@@ -17,9 +17,11 @@ for i in x:
     #Der Satz wird in die einzelnen Zeichen zerlegt
     #Wenn das zeichen einem Selbstlaut entspricht wird die Variable vocale_count um 1 erhöht --> warum
     
-    #if i == "a" or "e" or "i" or "o" or "u" --> #funktionierte leider nicht :( weiß nicht warum
+    if i == "a" or i=="e" or i=="i" or i=="o" or i=="u":
+        vocale_count = vocale_count + 1
+        
     
-    if i == "a":  # als workarount alle Selbstlaute einseln abfragen
+    """if i == "a":  # als workarount alle Selbstlaute einseln abfragen
         #print("DEBUG ",i)
         vocale_count = vocale_count + 1
     elif i =="e":
@@ -29,7 +31,7 @@ for i in x:
     elif i =="o":
         vocale_count = vocale_count + 1
     elif i =="u":
-        vocale_count = vocale_count + 1
+        vocale_count = vocale_count + 1"""
 
 #Ergbenis in der Komandozeile ausgeben lassen
 print("Der Satz: ", x, "enthält ", vocale_count, "Selbstlaute")
