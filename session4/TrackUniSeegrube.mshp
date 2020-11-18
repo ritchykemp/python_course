@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SAGA_METADATA>
+  <DATABASE>
+    <FIELDS>
+      <FIELD TYPE="DOUBLE">X</FIELD>
+      <FIELD TYPE="DOUBLE">Y</FIELD>
+      <FIELD TYPE="DOUBLE">Z</FIELD>
+      <FIELD TYPE="STRING">name</FIELD>
+      <FIELD TYPE="INTEGER">ENUM</FIELD>
+    </FIELDS>
+  </DATABASE>
+  <SOURCE></SOURCE>
+  <HISTORY saga-version="7.9.0">
+    <TOOL library="table_tools" id="21" name="Table Field Enumeration (Shapes)">
+      <OPTION type="table_field" id="FIELD" name="Attribute" index="-1">&lt;not set&gt;</OPTION>
+      <OPTION type="table_field" id="ENUM" name="Enumeration" index="-1">&lt;not set&gt;</OPTION>
+      <OPTION type="choice" id="ORDER" name="Order" index="0">ascending</OPTION>
+      <INPUT type="shapes" id="INPUT" name="Input">
+        <TOOL library="io_shapes" id="16" name="Import Point Cloud from Text File">
+          <OPTION type="file" id="FILE" name="Text File">C:\PYTHON2020\session 4\TrackUniSeegrube.txt</OPTION>
+          <OPTION type="choice" id="SEPARATOR" name="Field Separator" index="0">tabulator</OPTION>
+          <OPTION type="boolean" id="SKIP_HEADER" name="Skip first line">true</OPTION>
+          <OPTION type="integer" id="XFIELD" name="X is Column ...">2</OPTION>
+          <OPTION type="integer" id="YFIELD" name="Y is Column ...">3</OPTION>
+          <OPTION type="integer" id="ZFIELD" name="Z is Column ...">4</OPTION>
+          <OPTION type="text" id="FIELDS" name="Fields">1</OPTION>
+          <parameters name="Specifications" id="FIELDSPECS" type="parameters">
+            <OPTION type="text" id="NAME000" name="1. Field Name" parms="FIELDSPECS">name</OPTION>
+            <OPTION type="choice" id="TYPE000" name="1. Field Type" parms="FIELDSPECS" index="5">string</OPTION>
+          </parameters>
+          <OUTPUT type="data_object" id="POINTS" name="Point Cloud">TrackUniSeegrube</OUTPUT>
+        </TOOL>
+      </INPUT>
+      <OUTPUT type="shapes" id="OUTPUT" name="Output">TrackUniSeegrube [Enumerated]</OUTPUT>
+    </TOOL>
+  </HISTORY>
+  <FILE></FILE>
+  <DESCRIPTION></DESCRIPTION>
+  <PROJECTION>
+    <OGC_WKT>PROJCS["UTM zone 32N",GEOGCS["GCS",DATUM["WGS84",SPHEROID["WGS84",6378137.0,298.2572236],TOWGS84[0,0,0,0,0,0,0]],PRIMEM["Greenwich",0],UNIT["degree",0.01745329251994328]],PROJECTION[Transverse_Mercator],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",9],PARAMETER["scale_factor",0.999600],PARAMETER["false_easting",500000],PARAMETER["false_northing",0],UNIT["metre",1]]</OGC_WKT>
+    <PROJ4>+proj=utm +zone=32 +datum=WGS84 +units=m +no_defs </PROJ4>
+    <EPSG>-1</EPSG>
+  </PROJECTION>
+</SAGA_METADATA>

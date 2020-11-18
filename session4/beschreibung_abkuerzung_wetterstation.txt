@@ -1,0 +1,21 @@
+TNN	Minimum der Temperatur in 2m über dem Erdboden	Grad C	Minimum der Tageswerte TN
+
+TNM	Mittleres Tagesminimum der Temperatur in 2m über dem Erdboden	Grad C	Mittel der Tageswerte TN
+
+TMM	Mittel der Temperatur in 2m über dem Erdboden	Grad C	Mittel der Tageswerte TM 
+
+TXM	Mittleres Tagesmaximum der Temperatur in 2m über dem Erdboden	Grad C	Mittel der Tageswert TX
+
+TXX	Maximum der Temperatur in 2m über dem Erdboden	Grad C	Maximum der Tageswerte TX
+
+SOS	Summe der Sonnenscheindauer	Stunden	Summe der Tageswerte SO
+
+NMM	Mittel des Bedeckungsgrades	Achtel	Mittel der Tageswerte NM
+
+RSS	Summe der Niederschlagshöhe	mm	Summe der Tageswerte RS
+
+RSX	Maximum der täglichen Niederschlagshöhe	mm	Maximum der Tageswerte RS
+
+FMM	Mittel der Windstärke	Bft	Mittel der Tageswerte FM
+
+FXX	Maximum der Windgeschwindigkeit in 10m Höhe (Spitzenböe)	m/sec	Maximum der Tageswerte FX
