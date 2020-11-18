@@ -60,3 +60,7 @@ def verdoppelt(n):
     for i in range (1,x):
         kan_paar.append(kan_paar[i-1]*2)
     return kan_paar
+
+def Compute_Distance(x1,y1,x2,y2):
+	Dist = math.sqrt(math.pow(x2-x1,2) + math.pow(y2-y1,2))
+	return Dist
