@@ -14,7 +14,7 @@ for element in fobj:
     #print(type(element))
     element = element.strip() #reduziert die Einträge um /n (zeichen für zeilenumbruch)
     splitline = element.split(" ")
-    #print(splitline)
+    print(splitline)
 
     Nummer = float(splitline[0]) #macht den datentyp zu einem float (oder int)
     Name = splitline[1]
@@ -26,7 +26,7 @@ for element in fobj:
     namen.append(Name)
 fobj.close()
 
-print(nummern, namen)
+#print(nummern, namen)
 fobjout = open("Session4/TextDateiOut.txt", "w") # w = write 
 
 i =1
