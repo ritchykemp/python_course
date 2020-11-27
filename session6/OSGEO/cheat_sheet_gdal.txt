@@ -1,0 +1,149 @@
+from osgeo import gdal
+from osgeo import ogr
+
+import os
+import numpy as np
+import math
+
+def Compute_Distance(x1,y1,x2,y2):
+	Dist = math.sqrt(math.pow(x2-x1,2) + math.pow(y2-y1,2))
+	return Dist
+
+myrast = gdal.Open("DTM_Innsbruck.tif")
+NROWS = myrast.RasterXSize
+NCOLS = myrast.RasterYSize
+geotransform = myrast.GetGeoTransform()
+wkt_projection = myrast.GetProjection()
+
+XULCorner = geotransform[0]
+YULCorner = geotransform[3]
+Cellsize = geotransform[1]
+
+myband = myrast.GetRasterBand(1)
+Nodata = myband.GetNoDataValue()
+
+DTMArray = myband.ReadAsArray()
+
+
+driver = gdal.GetDriverByName("GTiff")
+dataset = driver.Create("DEM_Out.tif", NROWS, NCOLS, 1, gdal.GDT_Float32 )
+dataset.SetGeoTransform((XULCorner,Cellsize,0,YULCorner,0,-Cellsize))
+dataset.SetProjection(wkt_projection)
+dataset.GetRasterBand(1).WriteArray(DTMArray)
+
+dataset.FlushCache()
+
+
+driver = ogr.GetDriverByName('ESRI Shapefile')
+#Lies eine Datenquelle mit dem Driver!
+datasource = driver.Open("TrackUniSeegrube.shp", 0)       
+
+#Extrahiere einen Layer von der Datenquelle!
+layer = datasource.GetLayer()
+layer_properties = layer.GetLayerDefn()
+field_count = layer_properties.GetFieldCount()
+
+PointList =[]
+PointNames = []
+for i in range (layer.GetFeatureCount()):
+    feature = layer.GetFeature(i)
+    geometry = feature.GetGeometryRef()
+    x = geometry.GetX()
+    y = geometry.GetY()
+    PointList.append([x,y])
+    for ii in range(field_count):
+        fieldName = layer_properties.GetFieldDefn(ii).GetName()
+        FieldValue = feature.GetFieldAsString(fieldName)
+        print  i,fieldName, FieldValue
+        if(ii == 0):
+            PointNames.append(FieldValue)
+layer.ResetReading()                           
+datasource.Destroy()
+
+PointArray = np.array(PointList)
+print(PointArray)
+
+if os.path.exists("TrackOut.shp"):             
+    driver.DeleteDataSource("TrackOut.shp")
+datasource = driver.CreateDataSource("TrackOut.shp")
+layerout = datasource.CreateLayer("TrackOut",geom_type=ogr.wkbPoint)
+
+DistColumn = ogr.FieldDefn('DistCol', ogr.OFTReal)  
+layerout.CreateField(DistColumn)
+AccDistColumn = ogr.FieldDefn('AccDistCol', ogr.OFTReal)
+layerout.CreateField(AccDistColumn)
+HeightColumn = ogr.FieldDefn('Height', ogr.OFTReal)
+layerout.CreateField(HeightColumn) 
+
+AccDist = 0
+for i in range(1,len(PointArray)):
+    x2 = PointArray[i,0]
+    y2 = PointArray[i,1]
+    x1 = PointArray[i-1,0]
+    y1 = PointArray[i-1,1]
+    Dist = Compute_Distance(x1,y1,x2,y2)
+    AccDist += Dist
+    
+    gx = int((x1 -XULCorner)/Cellsize)
+    gy = int((y2 -YULCorner)/-Cellsize)
+    Height = float(DTMArray[gy,gx])
+
+    
+    featureOut = ogr.Feature(layerout.GetLayerDefn())
+    point = ogr.Geometry(ogr.wkbPoint)
+    point.AddPoint(x1,y2)
+    featureOut.SetGeometry(point)
+    featureOut.SetField('DistCol', Dist)
+    featureOut.SetField('AccDistCol', AccDist)
+    featureOut.SetField('Height', Height)
+    layerout.CreateFeature(featureOut)
+layerout.ResetReading()                           
+datasource.Destroy()
+
+# File lesen
+driver = ogr.GetDriverByName('ESRI Shapefile') 
+datasource = driver.Open("Session6/Borders.shp", 0)        
+
+layer = datasource.GetLayer()
+layer_properties = layer.GetLayerDefn()
+field_count = layer_properties.GetFieldCount()
+
+Lines = []
+featureCount = layer.GetFeatureCount()
+for i in range (layer.GetFeatureCount()):
+	Line = []
+	feature = layer.GetFeature(i)                              
+	geometry = feature.GetGeometryRef()
+	for i in range(geometry.GetPointCount()):
+		x = geometry.GetX(i)                     
+		y = geometry.GetY(i)
+		pt = (x,y)                      
+		Line.append(pt)  
+	Lines.append(Line)		
+          
+
+layer.ResetReading()                            
+datasource.Destroy()
+print(Lines)
+
+# Neues File schreiben
+if os.path.exists('Tirol.shp'): # hier
+    driver.DeleteDataSource('Tirol.shp')
+datasourceOut = driver.CreateDataSource('Tirol.shp')
+layerOut = datasourceOut.CreateLayer('Tirol',geom_type= ogr.wkbPolygon)
+
+featureDefn = layerOut.GetLayerDefn()
+featureOut = ogr.Feature(featureDefn)
+geom = ogr.Geometry(ogr.wkbPolygon)
+
+for border in Lines:
+    ring = ogr.Geometry(ogr.wkbLinearRing)
+    for vertex in border:
+        ring.AddPoint(vertex[0],vertex[1])
+
+    geom.AddGeometry(ring)
+featureOut.SetGeometry(geom)
+layerOut.CreateFeature(featureOut)
+	
+featureOut.Destroy()
+datasourceOut.Destroy()

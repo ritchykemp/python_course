@@ -1,0 +1,99 @@
+import saga_api
+import numpy as np
+
+def Compute_Distance(x1,y1,x2,y2):
+	Dist = math.sqrt(math.pow(x2-x1,2) + math.pow(y2-y1,2))
+	return Dist
+
+Grid = saga_api.SG_Get_Data_Manager().Add_Grid("Session6/DTM_Innsbruck.sgrd")
+Cellsize = Grid.Get_Cellsize()
+LLX = Grid.Get_XMin()
+LLY = Grid.Get_YMin()
+NX= Grid.Get_NX()
+NY= Grid.Get_NY()
+Nodata= Grid.Get_NoData_Value()
+print(Nodata)
+
+DTMArray = np.empty((NY,NX)))
+for gy in range(NY):
+    for gx in range(NX):
+        z= Grid.asDouble(gx, gy)
+        DTMArray[gy,gx]=z
+DTMArray=DTMArray+1000
+
+GridOut = saga_api.SG_Create_Grid(saga_api.SG_DATATYPE_Float,NX,NY,Cellsize,LLX,LLY,False)
+GridOut.Assign_NoData()
+
+
+for gy in range(NY):
+    for gx in range(NX):
+        z = DTMArray[gy,gx]
+        GridOut.Set_Value(gx,gy,z)
+
+GridOut.Save("Session6/Grid_Out.shp")
+
+PointList =[]
+PointNames = []
+count = Shapefile.Get_Count()
+for i in range(count):
+    shape = Shapefile.Get_Shape(i)
+    x = shape.Get_Point(0,0).x
+    y = shape.Get_Point(0,0).y
+    name = shape.asString(0)
+    
+    PointList.append([x,y])
+    PointNames.append(name)
+PointArray = np.array(PointList)
+print(PointArray)
+
+ShapeOut = saga_api.SG_Create_Shapes(saga_api.SHAPE_TYPE_Point, "Track", saga_api.CSG_Table(), saga_api.SG_VERTEX_TYPE_XY)
+ShapeOut.Add_Field(saga_api.CSG_String("DistCol"), saga_api.SG_DATATYPE_Float)
+ShapeOut.Add_Field(saga_api.CSG_String("AccDistCol"), saga_api.SG_DATATYPE_Float)
+ShapeOut.Add_Field(saga_api.CSG_String("Height"), saga_api.SG_DATATYPE_Float)
+
+AccDist = 0
+for i in range(1,len(PointArray)):
+    x2 = PointArray[i,0]
+    y2 = PointArray[i,1]
+    x1 = PointArray[i-1,0]
+    y1 = PointArray[i-1,1]
+    Dist = Compute_Distance(x1,y1,x2,y2)
+    AccDist += Dist
+    
+    gx = int((x1 -LLX)/Cellsize)
+    gy = int((y2 -LLY)/Cellsize)
+    Height = float(DTMArray[gy,gx])
+
+    shapeout = ShapeOut.Add_Shape()
+    shapeout.Add_Point(x1,y1,0)
+    shapeout.Set_Value(0,Dist)
+    shapeout.Set_Value(1,AccDist)
+    shapeout.Set_Value(2,Height)
+
+ShapeOut.Save("Session6/ShapesOut.shp")
+
+Shapefile = saga_api.SG_Get_Data_Manager().Add_Shapes("Session6/Borders.shp")
+count = Shapefile.Get_Count()
+
+Lines = []
+for i in range(count):
+    shape = Shapefile.Get_Shape(i)
+    Line = []
+    for pt in range(shape.Get_Point_Count(0)):
+        x = shape.Get_Point(pt, 0).x
+        y = shape.Get_Point(pt, 0).y
+        pt = (x,y)
+        Line.append(pt)
+    Lines.append(Line)	
+
+ShapeOut = saga_api.SG_Create_Shapes(saga_api.SHAPE_TYPE_Polygon, "Tirol", saga_api.CSG_Table(), saga_api.SG_VERTEX_TYPE_XY)
+ShapeOut.Add_Field(saga_api.CSG_String("ID"), saga_api.SG_DATATYPE_Int)
+
+shapeout = ShapeOut.Add_Shape()
+shapeout.Set_Value(0,0)
+ring = 0
+for border in Lines:
+    for vertex in border:
+        shapeout.Add_Point(vertex[0],vertex[1],ring)
+    ring+=1
+ShapeOut.Save('Session6/Tirol.shp')   
