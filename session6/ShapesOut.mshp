@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SAGA_METADATA>
+  <DATABASE>
+    <FIELDS>
+      <FIELD TYPE="FLOAT">DistCol</FIELD>
+      <FIELD TYPE="FLOAT">AccDistCol</FIELD>
+      <FIELD TYPE="FLOAT">Height</FIELD>
+    </FIELDS>
+  </DATABASE>
+  <SOURCE></SOURCE>
+  <HISTORY></HISTORY>
+  <FILE></FILE>
+  <DESCRIPTION></DESCRIPTION>
+</SAGA_METADATA>

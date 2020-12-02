@@ -1,5 +1,6 @@
 import math
 import mytools
+#need to run before starting! export PYTHONPATH=/usr/local/lib/python3.8/site-packages:$PYTHONPATH
 import saga_api
 import scipy
 import scipy.spatial 
@@ -7,7 +8,7 @@ import matplotlib
 
 
 # open shape file (point)
-Shapefile = saga_api.SG_Get_Data_Manager().Add_Shapes("TrackUniSeegrube.shp")
+Shapefile = saga_api.SG_Get_Data_Manager().Add_Shapes("session4/TrackUniSeegrube.shp")
 
 # create empty shape file with 3 attributes (point)
 ShapesOut = saga_api.SG_Create_Shapes(saga_api.SHAPE_TYPE_Point, "Output", saga_api.CSG_Table(), saga_api.SG_VERTEX_TYPE_XY)
