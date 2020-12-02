@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SAGA_METADATA>
+  <DATABASE>
+    <FIELDS>
+      <FIELD TYPE="LONGINT">Id</FIELD>
+    </FIELDS>
+  </DATABASE>
+  <SOURCE></SOURCE>
+  <HISTORY></HISTORY>
+  <FILE>X:\Laser\users\magnus\LEHRE\Master_Courses\Python_Course_2019_2020\Session6\Houses.shp</FILE>
+  <DESCRIPTION></DESCRIPTION>
+  <PROJECTION>
+    <OGC_WKT>PROJCS["Transverse_Mercator",GEOGCS["GCS",DATUM["WGS84",SPHEROID["WGS84",6378137.0,298.2572236],TOWGS84[0,0,0,0,0,0,0]],PRIMEM["Greenwich",0],UNIT["degree",0.01745329251994328]],PROJECTION[Transverse_Mercator],PARAMETER["latitude_of_origin",0.000000],PARAMETER["central_meridian",9.000000],PARAMETER["scale_factor",0.999600],PARAMETER["false_easting",500000.000000],PARAMETER["false_northing",0.000000],UNIT["metre",1]]</OGC_WKT>
+    <PROJ4>+proj=utm +zone=32 +datum=WGS84 +units=m +no_defs </PROJ4>
+    <EPSG>-1</EPSG>
+  </PROJECTION>
+</SAGA_METADATA>

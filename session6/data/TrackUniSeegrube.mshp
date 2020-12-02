@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SAGA_METADATA>
+  <DATABASE>
+    <FIELDS>
+      <FIELD TYPE="STRING">PointName</FIELD>
+    </FIELDS>
+  </DATABASE>
+  <SOURCE></SOURCE>
+  <HISTORY saga-version="7.3.0">
+    <TOOL library="pointcloud_tools" id="5" name="Point Cloud to Shapes">
+      <INPUT type="points" id="POINTS" name="Points">
+        <TOOL library="io_shapes" id="16" name="Import Point Cloud from Text File">
+          <OPTION type="file" id="FILE" name="Text File">X:\Laser\users\magnus\LEHRE\Master_Courses\Python_Course_2019_2020\Session4\TrackUniSeegrube.txt</OPTION>
+          <OPTION type="choice" id="SEPARATOR" name="Field Separator" index="0">tabulator</OPTION>
+          <OPTION type="boolean" id="SKIP_HEADER" name="Skip first line">true</OPTION>
+          <OPTION type="integer" id="XFIELD" name="X is Column ...">2</OPTION>
+          <OPTION type="integer" id="YFIELD" name="Y is Column ...">3</OPTION>
+          <OPTION type="integer" id="ZFIELD" name="Z is Column ...">4</OPTION>
+          <OPTION type="text" id="FIELDS" name="Fields">1</OPTION>
+          <parameters name="Specifications" id="FIELDSPECS" type="parameters">
+            <OPTION type="text" id="NAME000" name="1. Field Name" parms="FIELDSPECS">PointName</OPTION>
+            <OPTION type="choice" id="TYPE000" name="1. Field Type" parms="FIELDSPECS" index="5">string</OPTION>
+          </parameters>
+          <OUTPUT type="data_object" id="POINTS" name="Point Cloud">TrackUniSeegrube</OUTPUT>
+        </TOOL>
+      </INPUT>
+      <OUTPUT type="shapes" id="SHAPES" name="Shapes">TrackUniSeegrube</OUTPUT>
+    </TOOL>
+  </HISTORY>
+  <FILE></FILE>
+  <DESCRIPTION></DESCRIPTION>
+  <PROJECTION>
+    <OGC_WKT>PROJCS["WGS 84 / UTM zone 32N",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",9],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",0],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],AUTHORITY["EPSG","32632"]]</OGC_WKT>
+    <PROJ4>+proj=utm +zone=32 +datum=WGS84 +units=m +no_defs </PROJ4>
+    <EPSG>32632</EPSG>
+  </PROJECTION>
+</SAGA_METADATA>

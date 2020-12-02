@@ -15,7 +15,7 @@ def fit2(x,a,b,c):
     return a*x**2+b*x+c
 
 Data = []
-fobj = open("Session5/TreeHeightProfile.txt","r")
+fobj = open("session5/TreeHeightProfile.txt","r")
 for element in fobj:
     element = element.strip()
     splitline = element.split("\t")
@@ -52,7 +52,7 @@ plt.plot(xLine,yLine,'b-')
 plt.title("Treeheight vs. Terrain Height",fontsize=12)
 plt.ylabel('tree height in m')
 plt.xlabel('height in m')
-plt.savefig("Session5/Scatterplot.png",dpi=300)
+plt.savefig("session5/Scatterplot.png",dpi=300)
 plt.close()
 
 
