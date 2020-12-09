@@ -30,7 +30,7 @@ for gy in range(NY):
         zDTM= DTM.asFloat(gx, gy) # Beim Array erst Zeilen dann Spalten
         zDSM= DSM.asFloat(gx, gy)
         DTMArray[gy,gx]=zDTM #Beim Grid erst Spalten dann Zeilen
-        DTMArray[gy,gx]=zDSM
+        DSMArray[gy,gx]=zDSM
         if (zDSM-zDTM) > 5:
             Mask[gy,gx]=Nodata
         else:
