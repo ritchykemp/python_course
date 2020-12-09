@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SAGA_METADATA>
+  <DATABASE></DATABASE>
+  <SOURCE>
+    <GDAL_DRIVER>JP2ECW</GDAL_DRIVER>
+    <ALL_COMMENTS>Kakadu-v7.4
+Kdu-Layer-Info: log_2{Delta-D(squared-error)/Delta-L(bytes)}, L(bytes)
+-192.0,  3.4e+07
+</ALL_COMMENTS>
+    <COLORSPACE>GREYSCALE</COLORSPACE>
+    <COMPRESSION_RATE_TARGET>1</COMPRESSION_RATE_TARGET>
+    <Band></Band>
+  </SOURCE>
+  <HISTORY saga-version="7.9.0">
+    <TOOL library="grid_tools" id="31" name="Clip Grids">
+      <OPTION type="grid_system" id="PARAMETERS_GRID_SYSTEM" name="Grid System">
+        <CELLSIZE>10</CELLSIZE>
+        <XMIN>600005</XMIN>
+        <XMAX>709795</XMAX>
+        <YMIN>5190245</YMIN>
+        <YMAX>5300035</YMAX>
+      </OPTION>
+      <OPTION type="choice" id="EXTENT" name="Extent" index="2">shapes extent</OPTION>
+      <OPTION type="double" id="BUFFER" name="Buffer">0.000000</OPTION>
+      <INPUT_LIST type="grid_list" id="GRIDS" name="Grids" system="PARAMETERS_GRID_SYSTEM">
+        <INPUT type="grid_list" id="GRIDS" name="Grids" system="PARAMETERS_GRID_SYSTEM"/>
+        <INPUT type="grid_list" id="GRIDS" name="Grids" system="PARAMETERS_GRID_SYSTEM"/>
+        <INPUT type="grid_list" id="GRIDS" name="Grids" system="PARAMETERS_GRID_SYSTEM"/>
+        <INPUT type="grid_list" id="GRIDS" name="Grids" system="PARAMETERS_GRID_SYSTEM"/>
+        <INPUT type="grid_list" id="GRIDS" name="Grids" system="PARAMETERS_GRID_SYSTEM"/>
+        <INPUT type="grid_list" id="GRIDS" name="Grids" system="PARAMETERS_GRID_SYSTEM"/>
+      </INPUT_LIST>
+      <INPUT type="shapes" id="SHAPES" name="Shapes Extent">
+        <TOOL library="shapes_tools" id="0" name="Create New Shapes Layer">
+          <OPTION type="text" id="NAME" name="Name">AOI</OPTION>
+          <OPTION type="choice" id="TYPE" name="Shape Type" index="3">Polygon</OPTION>
+          <OPTION type="choice" id="VERTEX" name="Vertex Type" index="0">x, y</OPTION>
+          <OPTION type="integer" id="NFIELDS" name="Number of Attributes">2</OPTION>
+          <parameters name="Attributes" id="FIELDS" type="parameters">
+            <OPTION type="text" id="NAME0" name="Name" parms="FIELDS">ID</OPTION>
+            <OPTION type="choice" id="TYPE0" name="Type" parms="FIELDS" index="3">unsigned 1 byte integer</OPTION>
+            <OPTION type="text" id="NAME1" name="Name" parms="FIELDS">Name</OPTION>
+            <OPTION type="choice" id="TYPE1" name="Type" parms="FIELDS" index="0">string</OPTION>
+          </parameters>
+          <OUTPUT type="data_object" id="SHAPES" name="Shapes">AOI</OUTPUT>
+        </TOOL>
+      </INPUT>
+      <OUTPUT type="grid_list" id="CLIPPED" name="Clipped Grids">SWIR_11B</OUTPUT>
+    </TOOL>
+  </HISTORY>
+  <FILE></FILE>
+  <DESCRIPTION></DESCRIPTION>
+  <PROJECTION>
+    <OGC_WKT>PROJCS["WGS 84 / UTM zone 32N",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",9],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",0],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],AUTHORITY["EPSG","32632"]]</OGC_WKT>
+    <PROJ4>+proj=utm +zone=32 +datum=WGS84 +units=m +no_defs</PROJ4>
+    <EPSG>32632</EPSG>
+  </PROJECTION>
+</SAGA_METADATA>
