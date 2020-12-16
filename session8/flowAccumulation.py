@@ -16,6 +16,8 @@ print("Reading Raster...")
 DSMArray = np.empty((NY,NX))
 AccummulationArray =np.empty((NY,NX))
 
+
+HeightList =[]
 for gy in range(NY):
     for gx in range(NX):
 
@@ -25,25 +27,45 @@ for gy in range(NY):
             AccummulationArray[gy,gx]=Nodata
         else:
             AccummulationArray[gy,gx]=1.0
+            HeightList.append([zDSM,(gy,gx)])
+HeightList.sort(reverse=True)
+print(np.array(HeightList))
 
 
 #############################################################################
 ######## All dataset imported ###############################################
 #############################################################################
-for gy in range(NY):
-    for gx in range(NX):
-        SearchValue = DSMArray[gy,gx]
-        NeighborValues = []
-        ##### moving window approach
-        for window_gy in range(gy-1,gy+2):
-            for window_gx in range(gx-1,gx+2):
-                if window_gx >= NX or window_gy >= NY or window_gx < 0 or window_gy < 0:
-                    continue
-                NeighborValue = DSMArray[window_gy,window_gx]
-                DiffHeight = abs(SearchValue - NeighborValue)
-                NeighborValues.append(DiffHeight)
-        ########### end moving window #########
-        SelectedValue = max(NeighborValues)
+for element in HeightList:
+    gy,gx=element[1]
+    SearchValue = DSMArray[gy,gx]
+    if(SearchValue == Nodata):
+        continue
+    NeighborValues = []
+
+    mindHight = 999999.0
+    min_gx =-1
+    min_gy =-1
+    ##### moving window approach
+    for window_gy in range(gy-1,gy+2):
+        for window_gx in range(gx-1,gx+2):
+            if window_gx >= NX or window_gy >= NY or window_gx < 0 or window_gy < 0:
+                continue
+            NeighborValue = DSMArray[window_gy,window_gx]
+            if NeighborValue == Nodata:
+                continue
+            DiffHeight = (NeighborValue - SearchValue)
+
+            if DiffHeight < mindHight:
+                mindHight =DiffHeight
+                #vom niedrigsten wert des Windows wird sich die niedrigste Zelle bemerkt in den vorher definierten Variablen
+                min_gx = window_gx 
+                min_gy = window_gy
+
+    FlowAccSearchCell = AccummulationArray[gy,gx]
+    AccummulationArray[min_gy,min_gx]+=FlowAccSearchCell
+            
+    ########### end moving window #########
+        
         
 
 #############################################################################
